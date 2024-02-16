@@ -15,7 +15,7 @@ class RacoonResourceTest {
         assertEquals(
             HttpStatus.CREATED,
             res.postRacoon(
-                new RacoonResource.Resource("Bandit", "Black")
+                new RacoonResource.Resource(repo, "Bandit", "Black")
             ).getStatusCode()
         );
         assertEquals(1, repo.count());

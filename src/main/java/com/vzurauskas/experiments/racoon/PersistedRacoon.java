@@ -6,15 +6,15 @@ import com.vzurauskas.nereides.jackson.MutableJson;
 
 import java.util.UUID;
 
-public class DefaultRacoon implements Racoon {
+public class PersistedRacoon implements Racoon {
     private final UUID id;
-    private final String iban;
-    private final String currency;
+    private final String name;
+    private final String colour;
 
-    public DefaultRacoon(String iban, String currency) {
+    public PersistedRacoon(String name, String colour) {
         this.id = UUID.randomUUID();
-        this.iban = iban;
-        this.currency = currency;
+        this.name = name;
+        this.colour = colour;
     }
 
     @Override
@@ -25,7 +25,11 @@ public class DefaultRacoon implements Racoon {
     @Override
     public Json json() {
         return new MutableJson()
-            .with("iban", iban)
-            .with("currency", currency);
+            .with("name", name)
+            .with("colour", colour);
+    }
+
+    public Repo.DbEntry dbEntry() {
+        return new Repo.DbEntry(id, name, colour);
     }
 }

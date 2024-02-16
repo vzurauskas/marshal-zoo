@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.vzurauskas.nereides.jackson.Json;
+import com.vzurauskas.nereides.jackson.MutableJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.context.ApplicationContext;
@@ -29,14 +30,17 @@ public class RacoonResource {
     public static class Resource {
         private final String name;
         private final String colour;
+        private final Repo repo;
 
-        public Resource(String name, String colour) {
+        public Resource(Repo repo, String name, String colour) {
             this.name = name;
             this.colour = colour;
+            this.repo = repo;
         }
 
         Json post() {
-            throw new UnsupportedOperationException("not implemented yet");
+            repo.save(new PersistedRacoon(name, colour).dbEntry());
+            return new MutableJson().with("result", "Created " + name + "!");
         }
     }
 
@@ -55,6 +59,7 @@ public class RacoonResource {
         ) throws IOException {
             JsonNode node = p.getCodec().readTree(p);
             return new Resource(
+                repo,
                 node.get("name").asText(),
                 node.get("colour").asText()
             );
