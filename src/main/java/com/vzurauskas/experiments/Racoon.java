@@ -4,7 +4,7 @@ import com.vzurauskas.nereides.jackson.Json;
 
 import java.util.UUID;
 
-public interface Account {
+public interface Racoon {
     UUID id();
     Json json();
 }

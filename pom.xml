@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.vzurauskas</groupId>
-	<artifactId>spring-dto-prevention</artifactId>
+	<artifactId>marshal-zoo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-dto-prevention</name>
-	<description>Experiment to avoid DTOs in Spring, while retaining all their benefits.</description>
+	<name>marshal-zoo</name>
+	<description>HTTP deserialization experiments.</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
