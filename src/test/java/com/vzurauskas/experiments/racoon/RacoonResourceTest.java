@@ -10,7 +10,7 @@ class RacoonResourceTest {
 
     @Test
     void opensNewAccount() {
-        Repo repo = new FakeRepo();
+        RacoonRepo repo = new FakeRacoonRepo();
         RacoonResource res = new RacoonResource();
         assertEquals(
             HttpStatus.CREATED,

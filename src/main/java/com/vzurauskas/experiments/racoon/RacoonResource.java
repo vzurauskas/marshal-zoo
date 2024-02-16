@@ -30,9 +30,9 @@ public class RacoonResource {
     public static class Resource {
         private final String name;
         private final String colour;
-        private final Repo repo;
+        private final RacoonRepo repo;
 
-        public Resource(Repo repo, String name, String colour) {
+        public Resource(RacoonRepo repo, String name, String colour) {
             this.name = name;
             this.colour = colour;
             this.repo = repo;
@@ -46,11 +46,11 @@ public class RacoonResource {
 
     @JsonComponent
     public static class Deserializer extends JsonDeserializer<Resource> {
-        private final Repo repo;
+        private final RacoonRepo repo;
 
         @Autowired
         public Deserializer(ApplicationContext applicationContext) {
-            this.repo = applicationContext.getBean(Repo.class);
+            this.repo = applicationContext.getBean(RacoonRepo.class);
         }
 
         @Override

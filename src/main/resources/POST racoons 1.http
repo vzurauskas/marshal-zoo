@@ -1,0 +1,7 @@
+POST http://localhost:8080/racoons
+Content-Type: application/json
+
+{
+  "name": "Bandit",
+  "colour": "Grey"
+}

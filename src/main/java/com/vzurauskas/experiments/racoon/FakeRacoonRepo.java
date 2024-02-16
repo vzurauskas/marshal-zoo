@@ -5,10 +5,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public class FakeRepo implements Repo {
+public class FakeRacoonRepo implements RacoonRepo {
     private final Set<DbEntry> entries;
 
-    public FakeRepo() {
+    public FakeRacoonRepo() {
         this.entries = new HashSet<>();
     }
 

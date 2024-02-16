@@ -29,7 +29,7 @@ public class PersistedRacoon implements Racoon {
             .with("colour", colour);
     }
 
-    public Repo.DbEntry dbEntry() {
-        return new Repo.DbEntry(id, name, colour);
+    public RacoonRepo.DbEntry dbEntry() {
+        return new RacoonRepo.DbEntry(id, name, colour);
     }
 }
