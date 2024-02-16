@@ -15,15 +15,15 @@ public interface RacoonRepo extends CrudRepository<RacoonRepo.DbEntry, UUID> {
     class DbEntry {
         @Id
         public UUID id;
-        public String iban;
-        public String currency;
+        public String name;
+        public String colour;
 
         public DbEntry() {}
 
-        public DbEntry(UUID id, String iban, String currency) {
+        public DbEntry(UUID id, String name, String colour) {
             this.id = id;
-            this.iban = iban;
-            this.currency = currency;
+            this.name = name;
+            this.colour = colour;
         }
     }
 }
