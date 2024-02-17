@@ -6,5 +6,7 @@ import java.util.UUID;
 
 public interface Racoon {
     UUID id();
+    void paint(String colour);
     Json json();
+    void save();
 }

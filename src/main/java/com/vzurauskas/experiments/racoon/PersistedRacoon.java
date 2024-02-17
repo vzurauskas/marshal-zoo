@@ -8,11 +8,13 @@ import java.util.UUID;
 
 public class PersistedRacoon implements Racoon {
     private final UUID id;
+    private final RacoonRepo repo;
     private final String name;
-    private final String colour;
+    private String colour;
 
-    public PersistedRacoon(String name, String colour) {
-        this.id = UUID.randomUUID();
+    public PersistedRacoon(UUID id, RacoonRepo repo, String name, String colour) {
+        this.id = id;
+        this.repo = repo;
         this.name = name;
         this.colour = colour;
     }
@@ -23,13 +25,19 @@ public class PersistedRacoon implements Racoon {
     }
 
     @Override
+    public void paint(String colour) {
+        this.colour = colour;
+    }
+
+    @Override
     public Json json() {
         return new MutableJson()
             .with("name", name)
             .with("colour", colour);
     }
 
-    public RacoonRepo.DbEntry dbEntry() {
-        return new RacoonRepo.DbEntry(id, name, colour);
+    @Override
+    public void save() {
+        repo.save(new RacoonRepo.DbEntry(id, name, colour));
     }
 }

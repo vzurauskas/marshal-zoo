@@ -9,18 +9,22 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class RacoonResourceTest {
+class RacoonsResourceTest {
+    private final RacoonsEndpoint endpoint;
+    private final Racoons racoons;
 
+    public RacoonsResourceTest() {
+        this.endpoint = new RacoonsEndpoint();
+        this.racoons = new Racoons(new FakeRacoonRepo());
+    }
 
     @Test
-    void opensNewAccount() {
-        RacoonRepo repo = new FakeRacoonRepo();
-        RacoonResource res = new RacoonResource();
-        ResponseEntity<Json> response = res.postRacoon(
-            new RacoonResource.Resource(repo, "Bandit", "Black")
+    void creates() {
+        ResponseEntity<Json> response = endpoint.post(
+            new RacoonsEndpoint.RacoonsResource(racoons, "Bandit", "Black")
         );
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertTrue(new SmartJson(response.getBody()).textual().contains("Bandit"));
-        assertEquals(1, repo.count());
+        assertEquals(1, racoons.size());
     }
 }
