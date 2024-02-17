@@ -50,8 +50,8 @@ public class RacoonsEndpoint {
         private final RacoonRepo repo;
 
         @Autowired
-        public PostDeserializer(ApplicationContext applicationContext) {
-            this.repo = applicationContext.getBean(RacoonRepo.class);
+        public PostDeserializer(RacoonRepo repo) {
+            this.repo = repo;
         }
 
         @Override
@@ -93,8 +93,8 @@ public class RacoonsEndpoint {
         private final RacoonRepo repo;
 
         @Autowired
-        public GetDeserializer(ApplicationContext applicationContext) {
-            this.repo = applicationContext.getBean(RacoonRepo.class);
+        public GetDeserializer(RacoonRepo repo) {
+            this.repo = repo;
         }
 
         @Override

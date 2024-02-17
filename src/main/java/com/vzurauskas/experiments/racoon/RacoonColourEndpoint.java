@@ -50,8 +50,8 @@ public class RacoonColourEndpoint {
         private final RacoonRepo repo;
 
         @Autowired
-        public Deserializer(ApplicationContext applicationContext) {
-            this.repo = applicationContext.getBean(RacoonRepo.class);
+        public Deserializer(RacoonRepo repo) {
+            this.repo = repo;
         }
 
         @Override
