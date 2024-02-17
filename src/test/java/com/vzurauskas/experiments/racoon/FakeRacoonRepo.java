@@ -1,11 +1,8 @@
 package com.vzurauskas.experiments.racoon;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-public class FakeRacoonRepo implements RacoonRepo {
+public final class FakeRacoonRepo implements RacoonRepo {
     private final Set<DbEntry> entries;
 
     public FakeRacoonRepo() {
@@ -32,17 +29,17 @@ public class FakeRacoonRepo implements RacoonRepo {
     }
 
     @Override
+    public Iterable<DbEntry> findAll() {
+        return new ArrayList<>(entries);
+    }
+
+    @Override
     public <S extends DbEntry> Iterable<S> saveAll(Iterable<S> entities) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean existsById(UUID uuid) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Iterable<DbEntry> findAll() {
         throw new UnsupportedOperationException();
     }
 

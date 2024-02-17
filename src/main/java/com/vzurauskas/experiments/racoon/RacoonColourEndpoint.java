@@ -23,9 +23,9 @@ public class RacoonColourEndpoint {
 
     @PutMapping("{id}/colour")
     public ResponseEntity<Json> put(
-        @PathVariable UUID id, @RequestBody RacoonColourResource resource
+        @PathVariable UUID id, @RequestBody RacoonColourResource request
     ) {
-        return new ResponseEntity<>(resource.put(id), HttpStatus.OK);
+        return new ResponseEntity<>(request.execute(id), HttpStatus.OK);
     }
 
     public static class RacoonColourResource {
@@ -37,7 +37,7 @@ public class RacoonColourEndpoint {
             this.colour = colour;
         }
 
-        Json put(UUID id) {
+        Json execute(UUID id) {
             Racoon racoon = racoons.byId(id);
             racoon.paint(colour);
             racoon.save();

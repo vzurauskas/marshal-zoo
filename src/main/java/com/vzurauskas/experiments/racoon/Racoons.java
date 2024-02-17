@@ -2,6 +2,9 @@ package com.vzurauskas.experiments.racoon;
 
 import com.vzurauskas.experiments.Racoon;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public class Racoons {
@@ -18,6 +21,16 @@ public class Racoons {
     public Racoon byId(UUID id) {
         RacoonRepo.DbEntry racoon = repo.findById(id).orElseThrow();
         return new PersistedRacoon(racoon.id, repo, racoon.name, racoon.colour);
+    }
+
+    public Collection<Racoon> all() {
+        List<Racoon> racoons = new ArrayList<>();
+        repo.findAll().forEach(
+            racoon -> racoons.add(
+                new PersistedRacoon(racoon.id, repo, racoon.name, racoon.colour)
+            )
+        );
+        return racoons;
     }
 
     public int size() {

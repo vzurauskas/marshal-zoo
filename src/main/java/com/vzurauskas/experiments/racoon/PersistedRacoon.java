@@ -32,6 +32,7 @@ public class PersistedRacoon implements Racoon {
     @Override
     public Json json() {
         return new MutableJson()
+            .with("id", id.toString())
             .with("name", name)
             .with("colour", colour);
     }
