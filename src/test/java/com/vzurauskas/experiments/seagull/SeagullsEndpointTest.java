@@ -29,9 +29,7 @@ class SeagullsEndpointTest {
         seagulls.create(gulliverId, "Gulliver").save();
         UUID marinaId = UUID.randomUUID();
         seagulls.create(marinaId, "Marina").save();
-        ResponseEntity<ArrayNode> response = endpoint.get(
-            new SeagullsEndpoint.GetSeagulls()
-        );
+        ResponseEntity<ArrayNode> response = endpoint.get();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         ArrayNode body = response.getBody();
         assertEquals(2, body.size());

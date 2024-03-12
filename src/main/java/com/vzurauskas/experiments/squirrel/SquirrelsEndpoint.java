@@ -1,4 +1,4 @@
-package com.vzurauskas.experiments.seagull;
+package com.vzurauskas.experiments.squirrel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -12,21 +12,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/seagulls")
-public class SeagullsEndpoint {
-    private final Seagulls seagulls;
+@RequestMapping("/squirrels")
+public class SquirrelsEndpoint {
+    private final Squirrels squirrels;
 
-    public SeagullsEndpoint(SeagullRepo repo) {
-        seagulls = new Seagulls(repo);
+    public SquirrelsEndpoint(SquirrelRepo repo) {
+        squirrels = new Squirrels(repo);
     }
 
-    record PostSeagulls(String name) { }
-
     @PostMapping
-    public ResponseEntity<Json> post(@RequestBody PostSeagulls request) {
-        seagulls.create(UUID.randomUUID(), request.name).save();
+    public ResponseEntity<Json> post(@RequestBody Json request) {
+        SmartJson json = new SmartJson(request);
+        squirrels.create(
+            UUID.randomUUID(), json.leaf("name"), json.leaf("nut")
+        ).save();
         return new ResponseEntity<>(
-            new MutableJson().with("result", "Created " + request.name + "!"),
+            new MutableJson().with("result", "Created " + json.leaf("name") + "!"),
             HttpStatus.CREATED
         );
     }
@@ -34,8 +35,8 @@ public class SeagullsEndpoint {
     @GetMapping
     public ResponseEntity<ArrayNode> get() {
         ArrayNode node = new ObjectMapper().createArrayNode();
-        seagulls.all().forEach(
-            seagull -> node.add(new SmartJson(seagull.json()).objectNode())
+        squirrels.all().forEach(
+            squirrel -> node.add(new SmartJson(squirrel.json()).objectNode())
         );
         return new ResponseEntity<>(node, HttpStatus.OK);
     }
