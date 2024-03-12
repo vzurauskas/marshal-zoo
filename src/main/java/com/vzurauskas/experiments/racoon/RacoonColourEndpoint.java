@@ -9,7 +9,6 @@ import com.vzurauskas.nereides.jackson.Json;
 import com.vzurauskas.nereides.jackson.MutableJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonComponent;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,16 +22,16 @@ public class RacoonColourEndpoint {
 
     @PutMapping("{id}/colour")
     public ResponseEntity<Json> put(
-        @PathVariable UUID id, @RequestBody RacoonColourResource request
+        @PathVariable UUID id, @RequestBody PutColour request
     ) {
         return new ResponseEntity<>(request.execute(id), HttpStatus.OK);
     }
 
-    public static class RacoonColourResource {
+    public static class PutColour {
         private final String colour;
         private final Racoons racoons;
 
-        public RacoonColourResource(Racoons racoons, String colour) {
+        public PutColour(Racoons racoons, String colour) {
             this.racoons = racoons;
             this.colour = colour;
         }
@@ -46,7 +45,7 @@ public class RacoonColourEndpoint {
     }
 
     @JsonComponent
-    public static class Deserializer extends JsonDeserializer<RacoonColourResource> {
+    public static class Deserializer extends JsonDeserializer<PutColour> {
         private final RacoonRepo repo;
 
         @Autowired
@@ -55,11 +54,11 @@ public class RacoonColourEndpoint {
         }
 
         @Override
-        public RacoonColourResource deserialize(
+        public PutColour deserialize(
             JsonParser p, DeserializationContext ctxt
         ) throws IOException {
             JsonNode node = p.getCodec().readTree(p);
-            return new RacoonColourResource(
+            return new PutColour(
                 new Racoons(repo),
                 node.get("colour").asText()
             );

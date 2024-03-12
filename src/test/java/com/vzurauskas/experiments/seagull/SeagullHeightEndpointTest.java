@@ -25,7 +25,7 @@ class SeagullHeightEndpointTest {
         UUID id = UUID.randomUUID();
         seagulls.create(id, "Gulliver").save();
         ResponseEntity<Json> response = endpoint.put(
-            id, new SeagullHeightEndpoint.SeagullHeightResource(17)
+            id, new SeagullHeightEndpoint.PutHeight(17)
         );
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, seagulls.size());

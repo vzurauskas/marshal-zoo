@@ -25,7 +25,7 @@ class RacoonColourEndpointTest {
         UUID id = UUID.randomUUID();
         racoons.create(id, "Bandit", "Black").save();
         ResponseEntity<Json> response = endpoint.put(
-            id, new RacoonColourResource(racoons, "Red")
+            id, new PutColour(racoons, "Red")
         );
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, racoons.size());

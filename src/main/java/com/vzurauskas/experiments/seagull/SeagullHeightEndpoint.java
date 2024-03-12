@@ -18,11 +18,11 @@ public class SeagullHeightEndpoint {
         seagulls = new Seagulls(repo);
     }
 
-    public record SeagullHeightResource(int height) { }
+    public record PutHeight(int height) { }
 
     @PutMapping("{id}/height")
     public ResponseEntity<Json> put(
-        @PathVariable UUID id, @RequestBody SeagullHeightResource request
+        @PathVariable UUID id, @RequestBody PutHeight request
     ) {
         Seagull seagull = seagulls.byId(id);
         seagull.fly(request.height);
