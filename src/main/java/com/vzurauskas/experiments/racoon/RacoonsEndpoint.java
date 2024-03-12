@@ -68,8 +68,8 @@ public class RacoonsEndpoint {
     }
 
     @GetMapping
-    public ResponseEntity<ArrayNode> get(@RequestBody GetRacoons resource) {
-        return new ResponseEntity<>(resource.execute(), HttpStatus.OK);
+    public ResponseEntity<ArrayNode> get(@RequestBody GetRacoons request) {
+        return new ResponseEntity<>(request.execute(), HttpStatus.OK);
     }
 
     public static class GetRacoons {

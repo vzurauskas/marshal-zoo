@@ -20,6 +20,8 @@ public class SeagullsEndpoint {
         seagulls = new Seagulls(repo);
     }
 
+    public record PostSeagulls(String name) { }
+
     @PostMapping
     public ResponseEntity<Json> post(@RequestBody PostSeagulls request) {
         seagulls.create(UUID.randomUUID(), request.name).save();
@@ -29,18 +31,16 @@ public class SeagullsEndpoint {
         );
     }
 
-    public record PostSeagulls(String name) { }
+    public record GetSeagulls() { }
 
     @GetMapping
-    public ResponseEntity<ArrayNode> get(@RequestBody GetSeagulls resource) {
+    public ResponseEntity<ArrayNode> get(@RequestBody GetSeagulls request) {
         ArrayNode node = new ObjectMapper().createArrayNode();
         seagulls.all().forEach(
             seagull -> node.add(new SmartJson(seagull.json()).objectNode())
         );
         return new ResponseEntity<>(node, HttpStatus.OK);
     }
-
-    public record GetSeagulls() { }
 }
 
 
