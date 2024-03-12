@@ -1,12 +1,12 @@
 package com.vzurauskas.experiments.squirrel;
 
-import com.vzurauskas.experiments.Racoon;
+import com.vzurauskas.experiments.Squirrel;
 import com.vzurauskas.nereides.jackson.Json;
 import com.vzurauskas.nereides.jackson.MutableJson;
 
 import java.util.UUID;
 
-public class PersistedSquirrel implements Racoon {
+public class PersistedSquirrel implements Squirrel {
     private final UUID id;
     private final SquirrelRepo repo;
     private final String name;
@@ -25,7 +25,7 @@ public class PersistedSquirrel implements Racoon {
     }
 
     @Override
-    public void paint(String nut) {
+    public void takeNut(String nut) {
         this.nut = nut;
     }
 

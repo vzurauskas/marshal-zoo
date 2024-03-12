@@ -1,6 +1,6 @@
 package com.vzurauskas.experiments.squirrel;
 
-import com.vzurauskas.experiments.Racoon;
+import com.vzurauskas.experiments.Squirrel;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,17 +14,17 @@ public class Squirrels {
         this.repo = repo;
     }
 
-    public Racoon create(UUID id, String name, String colour) {
+    public Squirrel create(UUID id, String name, String colour) {
         return new PersistedSquirrel(id, repo, name, colour);
     }
 
-    public Racoon byId(UUID id) {
+    public Squirrel byId(UUID id) {
         SquirrelRepo.DbEntry squirrel = repo.findById(id).orElseThrow();
         return new PersistedSquirrel(squirrel.id, repo, squirrel.name, squirrel.nut);
     }
 
-    public Collection<Racoon> all() {
-        List<Racoon> squirrels = new ArrayList<>();
+    public Collection<Squirrel> all() {
+        List<Squirrel> squirrels = new ArrayList<>();
         repo.findAll().forEach(
             squirrel -> squirrels.add(
                 new PersistedSquirrel(squirrel.id, repo, squirrel.name, squirrel.nut)
