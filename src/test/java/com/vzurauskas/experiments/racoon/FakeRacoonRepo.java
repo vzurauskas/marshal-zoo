@@ -3,24 +3,28 @@ package com.vzurauskas.experiments.racoon;
 import java.util.*;
 
 public final class FakeRacoonRepo implements RacoonRepo {
-    private final Set<DbEntry> entries;
+    private final Map<UUID, DbEntry> entries;
+    private final List<UUID> insertionOrder;
 
     public FakeRacoonRepo() {
-        this.entries = new HashSet<>();
+        this.entries = new LinkedHashMap<>();
+        this.insertionOrder = new ArrayList<>();
     }
 
     @Override
     public <S extends DbEntry> S save(S entity) {
-        entries.remove(entity);
-        entries.add(entity);
+        if (entries.containsKey(entity.id)) {
+            entries.put(entity.id, entity);
+        } else {
+            insertionOrder.add(entity.id);
+            entries.put(entity.id, entity);
+        }
         return entity;
     }
 
     @Override
     public Optional<DbEntry> findById(UUID uuid) {
-        return entries.stream()
-            .filter(entity -> entity.id.equals(uuid))
-            .findAny();
+        return Optional.ofNullable(entries.get(uuid));
     }
 
     @Override
@@ -30,7 +34,11 @@ public final class FakeRacoonRepo implements RacoonRepo {
 
     @Override
     public Iterable<DbEntry> findAll() {
-        return new ArrayList<>(entries);
+        List<DbEntry> allEntries = new ArrayList<>();
+        for (UUID id : insertionOrder) {
+            allEntries.add(entries.get(id));
+        }
+        return allEntries;
     }
 
     @Override
