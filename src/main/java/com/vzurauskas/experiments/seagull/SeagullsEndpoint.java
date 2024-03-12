@@ -20,7 +20,7 @@ public class SeagullsEndpoint {
         seagulls = new Seagulls(repo);
     }
 
-    public record PostSeagulls(String name) { }
+    record PostSeagulls(String name) { }
 
     @PostMapping
     public ResponseEntity<Json> post(@RequestBody PostSeagulls request) {
@@ -31,7 +31,7 @@ public class SeagullsEndpoint {
         );
     }
 
-    public record GetSeagulls() { }
+    record GetSeagulls() { }
 
     @GetMapping
     public ResponseEntity<ArrayNode> get(@RequestBody GetSeagulls request) {

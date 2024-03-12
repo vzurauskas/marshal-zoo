@@ -18,7 +18,7 @@ public class SeagullHeightEndpoint {
         seagulls = new Seagulls(repo);
     }
 
-    public record PutHeight(int height) { }
+    record PutHeight(int height) { }
 
     @PutMapping("{id}/height")
     public ResponseEntity<Json> put(
